@@ -40,5 +40,15 @@ public class ProductController {
         List<Product>  productList = productService.getAllProductsByUserId(user_id);
         return new ResponseEntity<>(productList,HttpStatus.OK);
     }
+    @DeleteMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable long id){
+        return productService.deleteProduct(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable long id,@RequestBody Product product){
+        Product updatedProduct = productService.updateProduct(id, product);
+        return new ResponseEntity<>(updatedProduct,HttpStatus.OK);
+    }
 
 }

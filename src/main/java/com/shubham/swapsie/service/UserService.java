@@ -11,5 +11,11 @@ public interface UserService {
 
     List<User> getUsers();
 
+    User getUserById(long id);
+
+    User updateUser(long id, User updatedUser);
+
+    String deleteUser(long id);
+
     User login(LoginRequest loginRequest);
 }

@@ -29,6 +29,23 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable long id){
+        User user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable long id){
+        return userService.deleteUser(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable long id,@RequestBody User updatedUser){
+        User user = userService.updateUser(id, updatedUser);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public User login(@RequestBody LoginRequest loginRequest){
         User user = userService.login(loginRequest);

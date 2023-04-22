@@ -36,9 +36,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAllProductsByUserId(long user_id) {
         List<Product> productList = productRepository.findAllByUserId(user_id);
-//        if(product == null)
-//            throw new RuntimeException("Did not find any product for this user ");
         return productList;
+    }
+
+    @Override
+    public String deleteProduct(long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("Product with id : "+id+" does not exist"));
+        productRepository.delete(product);
+        return "Product "+product.getName()+" with id : "+product.getId()+" deleted successfully";
+    }
+
+    @Override
+    public Product updateProduct(long id, Product product) {
+        Product updatedProduct = productRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("Product with id : "+id+" does not exist"));
+        updatedProduct.setName(product.getName());
+        updatedProduct.setDescription(product.getDescription());
+        updatedProduct.setImgLink(product.getImgLink());
+        productRepository.save(updatedProduct);
+        return updatedProduct;
     }
 
 }

@@ -4,6 +4,7 @@ import com.shubham.swapsie.exception.ResourceNotFoundException;
 import com.shubham.swapsie.model.Product;
 import com.shubham.swapsie.model.SwapRequest;
 import com.shubham.swapsie.model.User;
+import com.shubham.swapsie.repository.ProductRepository;
 import com.shubham.swapsie.repository.SwapRequestRepository;
 import com.shubham.swapsie.service.SwapRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class SwapRequestServiceImpl implements SwapRequestService {
 
     @Autowired
     SwapRequestRepository swapRequestRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     @Override
     public SwapRequest createSwapRequest(SwapRequest swapRequest) {
@@ -28,55 +31,99 @@ public class SwapRequestServiceImpl implements SwapRequestService {
     }
 
     @Override
-    public void deleteRequest(long id) {
-        swapRequestRepository.deleteById(id);
+    public String deleteSwapRequest(long id) {
+        SwapRequest swapRequest = swapRequestRepository.findById(id)
+            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+        swapRequestRepository.delete(swapRequest);
+        return "SwapRequest of (Product 1:"+swapRequest.getProduct1()+" and Product 2:"+swapRequest.getProduct2()+") having id:"+swapRequest.getId()+" deleted successfully";
     }
 
     @Override
     public SwapRequest getSwapRequestById(long id) {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
-                .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id : "+id+" does not exist"));
+            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
         return swapRequest;
+    }
+
+    @Override
+    public SwapRequest updateSwapRequest(long id, SwapRequest swapRequest) {
+        SwapRequest updatedSwapRequest = swapRequestRepository.findById(id)
+            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+
+        updatedSwapRequest.setStatus(swapRequest.getStatus());
+        updatedSwapRequest.setProduct1(swapRequest.getProduct1());
+        updatedSwapRequest.setProduct2(swapRequest.getProduct2());
+        updatedSwapRequest.setUser1(swapRequest.getUser1());
+        updatedSwapRequest.setUser2(swapRequest.getUser2());
+        swapRequestRepository.save(updatedSwapRequest);
+        return updatedSwapRequest;
     }
 
     @Override
     public SwapRequest acceptSwapRequest(long id) {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
-                .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id : "+id+" does not exist"));
+                .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+
         Product product1 = swapRequest.getProduct1();
         Product product2 = swapRequest.getProduct2();
-        User user1 = swapRequest.getProduct1().getUser();
-        User user2 = swapRequest.getProduct2().getUser();
+        User user1 = swapRequest.getUser1();
+        User user2 = swapRequest.getUser2();
 
-        swapRequest.setStatus("Completed");
+        //logic to check if not already processed.
+        if( !swapRequest.getStatus().equals("Pending") )
+            return swapRequest;
+
+        if(product1.getUser() != user1 || product2.getUser() != user2)
+            return swapRequest;
+        // logic complete for checking
+
+        swapRequest.setStatus("Completed. ( "+user1.getId()+" ) : between ( FromUser1Id:"+user1.getId()+", ToUser2Id:"+user2.getId()+" )");
         product1.setUser(user2);
         product2.setUser(user1);
+        productRepository.save(product1);
+        productRepository.save(product2);
+        SwapRequest acceptedSwapRequest = swapRequestRepository.save(swapRequest);
 
-
-        return swapRequest;
+        return acceptedSwapRequest;
     }
     @Override
-    public void declineSwapRequest(long id) {
-        swapRequestRepository.deleteById(id);
+    public String declineSwapRequest(long id) {
+        SwapRequest swapRequest = swapRequestRepository.findById(id)
+            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+
+        Product product1 = swapRequest.getProduct1();
+        Product product2 = swapRequest.getProduct2();
+        User user1 = swapRequest.getUser1();
+        User user2 = swapRequest.getUser2();
+
+        //logic to check if not already processed.
+        if( !swapRequest.getStatus().equals("Pending") )
+            return "Already processed!!!.  SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id : "+swapRequest.getId()+" was already processed before";
+
+
+        swapRequest.setStatus("Declined.  between (FromUser1Id:"+user1.getId()+", ToUser2Id:"+user2+")");
+        swapRequestRepository.save(swapRequest);
+        return "Declined!!! . SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id : "+swapRequest.getId()+" was declined";
+
     }
 
     @Override
-    public SwapRequest getSwapRequestByProduct1(long product1_id) {
-        return null;
+    public List<SwapRequest> getSwapRequestByProduct1(long product1_id) {
+        return swapRequestRepository.findSwapRequestsByProduct1Id(product1_id);
     }
 
     @Override
-    public SwapRequest getSwapRequestByProduct2(long product2_id) {
-        return null;
+    public List<SwapRequest> getSwapRequestByProduct2(long product2_id) {
+        return swapRequestRepository.findSwapRequestsByProduct2Id(product2_id);
     }
 
     @Override
-    public SwapRequest getSwapRequestByUser1(long user1_id) {
-        return null;
+    public List<SwapRequest> getSwapRequestByUser1(long user1_id) {
+        return swapRequestRepository.findAllSwapRequestByUser1Id(user1_id);
     }
 
     @Override
-    public SwapRequest getSwapRequestByUser2(long user2_id) {
-        return null;
+    public List<SwapRequest> getSwapRequestByUser2(long user2_id) {
+        return swapRequestRepository.findAllSwapRequestByUser2Id(user2_id);
     }
 }

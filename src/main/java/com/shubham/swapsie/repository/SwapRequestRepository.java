@@ -8,7 +8,13 @@ import java.util.List;
 
 @Repository
 public interface SwapRequestRepository extends JpaRepository<SwapRequest, Long> {
-    public List<SwapRequest> findAllByProduct1UserId(long product1_user_id);
 
-    public List<SwapRequest> findAllByProduct2UserId(long product2_user_id);
+    public List<SwapRequest> findSwapRequestsByProduct1Id(long product1_id);
+
+    public List<SwapRequest> findSwapRequestsByProduct2Id(long product2_id);
+
+
+    public List<SwapRequest> findAllSwapRequestByUser1Id(long user1_id);
+
+    public List<SwapRequest> findAllSwapRequestByUser2Id(long user2_id);
 }

@@ -8,18 +8,21 @@ public interface SwapRequestService {
     SwapRequest createSwapRequest(SwapRequest swapRequest);
 
     List<SwapRequest> getAllSwapRequests();
-    void deleteRequest(long id);
+    String deleteSwapRequest(long id);
+
+    SwapRequest updateSwapRequest(long id, SwapRequest swapRequest);
 
     SwapRequest getSwapRequestById(long id);
 
     SwapRequest acceptSwapRequest(long id);
 
-    void declineSwapRequest(long id);
-    SwapRequest getSwapRequestByProduct1(long product1_id);
+    String declineSwapRequest(long id);
 
-    SwapRequest getSwapRequestByProduct2(long product2_id);
+    List<SwapRequest> getSwapRequestByProduct1(long product1_id);
 
-    SwapRequest getSwapRequestByUser1(long user1_id);
+    List<SwapRequest> getSwapRequestByProduct2(long product2_id);
 
-    SwapRequest getSwapRequestByUser2(long user2_id);
+    List<SwapRequest> getSwapRequestByUser1(long user1_id);
+
+    List<SwapRequest> getSwapRequestByUser2(long user2_id);
 }

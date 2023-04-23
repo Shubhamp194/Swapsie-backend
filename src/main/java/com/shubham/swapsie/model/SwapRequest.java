@@ -28,12 +28,12 @@ public class SwapRequest {
     @JoinColumn(name = "product2_id")
     private Product product2;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user1_id")
-//    private User user1;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user2_id")
-//    private User user2;
+    @ManyToOne
+    @JoinColumn(name = "user1_id")
+    private User user1;
+
+    @ManyToOne
+    @JoinColumn(name = "user2_id")
+    private User user2;
 
 }

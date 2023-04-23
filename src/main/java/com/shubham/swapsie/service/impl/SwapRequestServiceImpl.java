@@ -35,7 +35,7 @@ public class SwapRequestServiceImpl implements SwapRequestService {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
             .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
         swapRequestRepository.delete(swapRequest);
-        return "SwapRequest of (Product 1:"+swapRequest.getProduct1()+" and Product 2:"+swapRequest.getProduct2()+") having id:"+swapRequest.getId()+" deleted successfully";
+        return "Deleted Successfully. SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id:"+swapRequest.getId()+" deleted successfully";
     }
 
     @Override

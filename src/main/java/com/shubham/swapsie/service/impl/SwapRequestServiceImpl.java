@@ -33,7 +33,7 @@ public class SwapRequestServiceImpl implements SwapRequestService {
     @Override
     public String deleteSwapRequest(long id) {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
-            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+            .orElseThrow( () -> new ResourceNotFoundException("Not Found !! SwapRequest with id:"+id+" does not exist"));
         swapRequestRepository.delete(swapRequest);
         return "Deleted Successfully. SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id:"+swapRequest.getId()+" deleted successfully";
     }
@@ -41,14 +41,14 @@ public class SwapRequestServiceImpl implements SwapRequestService {
     @Override
     public SwapRequest getSwapRequestById(long id) {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
-            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+            .orElseThrow( () -> new ResourceNotFoundException("Not Found !! SwapRequest with id:"+id+" does not exist"));
         return swapRequest;
     }
 
     @Override
     public SwapRequest updateSwapRequest(long id, SwapRequest swapRequest) {
         SwapRequest updatedSwapRequest = swapRequestRepository.findById(id)
-            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+            .orElseThrow( () -> new ResourceNotFoundException("Not Found !! SwapRequest with id:"+id+" does not exist"));
 
         updatedSwapRequest.setStatus(swapRequest.getStatus());
         updatedSwapRequest.setProduct1(swapRequest.getProduct1());
@@ -62,7 +62,7 @@ public class SwapRequestServiceImpl implements SwapRequestService {
     @Override
     public SwapRequest acceptSwapRequest(long id) {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
-                .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+                .orElseThrow( () -> new ResourceNotFoundException("Not Found !! SwapRequest with id:"+id+" does not exist"));
 
         Product product1 = swapRequest.getProduct1();
         Product product2 = swapRequest.getProduct2();
@@ -70,14 +70,20 @@ public class SwapRequestServiceImpl implements SwapRequestService {
         User user2 = swapRequest.getUser2();
 
         //logic to check if not already processed.
-        if( !swapRequest.getStatus().equals("Pending") )
-            return swapRequest;
+        if(product1.getUser() != user1 || product2.getUser() != user2) {
+            swapRequest.setStatus("Failed !!. Already swapped !!!. The product has already been swapped with someone else");
+            SwapRequest failedSwapRequest = swapRequestRepository.save(swapRequest);
+            return failedSwapRequest;
+        }
 
-        if(product1.getUser() != user1 || product2.getUser() != user2)
-            return swapRequest;
+        if( !swapRequest.getStatus().equals("Pending") ) {
+            swapRequest.setStatus("Failed !!. Already Processed !!!. The Swap Request has already been processed earlier");
+            SwapRequest failedSwapRequest = swapRequestRepository.save(swapRequest);
+            return failedSwapRequest;
+        }
         // logic complete for checking
 
-        swapRequest.setStatus("Completed. ( "+user1.getId()+" ) : between ( FromUser1Id:"+user1.getId()+", ToUser2Id:"+user2.getId()+" )");
+        swapRequest.setStatus("Completed Successfully. ( "+user1.getId()+" ) : between ( FromUser1Id:"+user1.getId()+", ToUser2Id:"+user2.getId()+" )");
         product1.setUser(user2);
         product2.setUser(user1);
         productRepository.save(product1);
@@ -89,7 +95,7 @@ public class SwapRequestServiceImpl implements SwapRequestService {
     @Override
     public String declineSwapRequest(long id) {
         SwapRequest swapRequest = swapRequestRepository.findById(id)
-            .orElseThrow( () -> new ResourceNotFoundException("SwapRequest with id:"+id+" does not exist"));
+            .orElseThrow( () -> new ResourceNotFoundException("Not Found !! SwapRequest with id:"+id+" does not exist"));
 
         Product product1 = swapRequest.getProduct1();
         Product product2 = swapRequest.getProduct2();
@@ -97,13 +103,23 @@ public class SwapRequestServiceImpl implements SwapRequestService {
         User user2 = swapRequest.getUser2();
 
         //logic to check if not already processed.
-        if( !swapRequest.getStatus().equals("Pending") )
-            return "Already processed!!!.  SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id : "+swapRequest.getId()+" was already processed before";
+        if(product1.getUser() != user1 || product2.getUser() != user2) {
+            swapRequest.setStatus("Failed !!. Already swapped !!!. The product has already been swapped with someone else");
+            SwapRequest failedSwapRequest = swapRequestRepository.save(swapRequest);
+//            return failedSwapRequest;
+            return ("Failed !!. Already swapped !!!. The product has already been swapped with someone else");
+        }
 
+
+        if( !swapRequest.getStatus().equals("Pending") ) {
+//            return swapRequest;
+            return "Failed !! Already processed!!!.  SwapRequest of (Product 1:" + swapRequest.getProduct1().getName() + " and Product 2:" + swapRequest.getProduct2().getName() + ") having id : " + swapRequest.getId() + " was already processed earlier";
+        }
 
         swapRequest.setStatus("Declined.  between (FromUser1Id:"+user1.getId()+", ToUser2Id:"+user2+")");
-        swapRequestRepository.save(swapRequest);
-        return "Declined!!! . SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id : "+swapRequest.getId()+" was declined";
+        SwapRequest  declinedSwapRequest = swapRequestRepository.save(swapRequest);
+//        return declinedSwapRequest;
+        return "Declined !!! . SwapRequest of (Product 1:"+swapRequest.getProduct1().getName()+" and Product 2:"+swapRequest.getProduct2().getName()+") having id : "+swapRequest.getId()+" was declined";
 
     }
 

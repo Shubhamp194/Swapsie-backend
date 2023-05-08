@@ -39,27 +39,27 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable long id){
         User user = userService.getUserById(id);
-        logger.info("User Searched");
+        logger.info("User Searched having id : "+id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable long id){
-        logger.info("User Removed");
+        logger.info("User Removed having id : "+id);
         return userService.deleteUser(id);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id,@RequestBody User updatedUser){
         User user = userService.updateUser(id, updatedUser);
-        logger.info("User Updated");
+        logger.info("User Updated having id : "+id);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public User login(@RequestBody LoginRequest loginRequest){
         User user = userService.login(loginRequest);
-        logger.info("User Login successful");
+        logger.info("User Login successful for user with email : "+user.getEmail());
         return user;
     }
 

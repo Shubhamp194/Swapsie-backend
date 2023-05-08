@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -18,39 +20,48 @@ public class SwapRequestController {
     @Autowired
     SwapRequestService swapRequestService;
 
+    private static final Logger logger = LogManager.getLogger(SwapRequestController.class);
+
+
     @PostMapping("/create")
     public ResponseEntity<SwapRequest> createSwapRequest(@RequestBody SwapRequest swapRequest){
         SwapRequest newSwapRequest = swapRequestService.createSwapRequest(swapRequest);
+        logger.info("New Swap Request Initiated");
         return new ResponseEntity<>(newSwapRequest, HttpStatus.CREATED);
     }
 
     @GetMapping("/getAllSwapRequests")
     public ResponseEntity<List<SwapRequest>> getAllSwapRequests(){
         List<SwapRequest> swapRequestList = swapRequestService.getAllSwapRequests();
+        logger.info("List of all Swap Requests requested");
         return new ResponseEntity<>(swapRequestList, HttpStatus.OK);
     }
 
     @GetMapping("/getAllSwapRequestsByProduct1/{product1_id}")
     public ResponseEntity<List<SwapRequest>> getAllSwapRequestsByProduct1(@PathVariable long product1_id){
         List<SwapRequest> swapRequestList = swapRequestService.getSwapRequestByProduct1(product1_id);
+        logger.info("List of all Swap Requests requested of a specific product with productId : "+product1_id);
         return new ResponseEntity<>(swapRequestList,HttpStatus.OK);
     }
 
     @GetMapping("/getAllSwapRequestsByProduct2/{product2_id}")
     public ResponseEntity<List<SwapRequest>> getAllSwapRequestsByProduct2(@PathVariable long product2_id){
         List<SwapRequest> swapRequestList = swapRequestService.getSwapRequestByProduct2(product2_id);
+        logger.info("List of all Swap Requests requested of a specific product with productId : "+product2_id);
         return new ResponseEntity<>(swapRequestList,HttpStatus.OK);
     }
 
     @GetMapping("/getAllSwapRequestsByUser1/{user1_id}")
     public ResponseEntity<List<SwapRequest>> getAllSwapRequestsByUser1(@PathVariable long user1_id){
         List<SwapRequest> swapRequestList = swapRequestService.getSwapRequestByUser1(user1_id);
+        logger.info("List of all Swap Requests requested from a specific user with userId : "+user1_id);
         return new ResponseEntity<>(swapRequestList,HttpStatus.OK);
     }
 
     @GetMapping("/getAllSwapRequestsByUser2/{user2_id}")
     public ResponseEntity<List<SwapRequest>> getAllSwapRequestsByUser2(@PathVariable long user2_id){
         List<SwapRequest> swapRequestList = swapRequestService.getSwapRequestByUser2(user2_id);
+        logger.info("List of all Swap Requests requested from a specific user with userId : "+user2_id);
         return new ResponseEntity<>(swapRequestList,HttpStatus.OK);
     }
 
@@ -58,28 +69,33 @@ public class SwapRequestController {
     @GetMapping("/get/{id}")
     public ResponseEntity<SwapRequest> getSwapRequestById(@PathVariable long id){
         SwapRequest swapRequest = swapRequestService.getSwapRequestById(id);
+        logger.info("Swap Requests with id : "+id+" requested");
         return new ResponseEntity<>(swapRequest, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteSwapRequest(@PathVariable long id){
+        logger.info("Swap Requests with id : "+id+" deleted");
         return swapRequestService.deleteSwapRequest(id);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<SwapRequest> updateSwapRequest(@PathVariable long id,@RequestBody SwapRequest swapRequest){
         SwapRequest updatedSwapRequest = swapRequestService.updateSwapRequest(id, swapRequest);
+        logger.info("Request sent to update Swap Requests with id : "+id);
         return new ResponseEntity<>(updatedSwapRequest,HttpStatus.OK);
     }
 
     @PutMapping("/{id}/decline")
     public String declineSwapRequest(@PathVariable long id){
+        logger.info("Swap Requests with id : "+id+" declined");
         return swapRequestService.declineSwapRequest(id);
     }
 
     @PutMapping("/{id}/accept")
     public ResponseEntity<SwapRequest> acceptSwapRequest(@PathVariable long id){
         SwapRequest acceptedSwapRequest = swapRequestService.acceptSwapRequest(id);
+        logger.info("Swap Requests with id : "+id+" accepted");
         return new ResponseEntity<>(acceptedSwapRequest, HttpStatus.ACCEPTED);
     }
 

@@ -31,32 +31,33 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts(){
         List<Product> productList = productService.getAllProducts();
         logger.info("All Products requested");
+        logger.error("eerere");
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable long id){
         Product product = productService.getProductById(id);
-        logger.info("Specific Product requested using id");
+        logger.info("Specific Product requested having id : "+id);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
     @GetMapping("/user/{user_id}")
     public ResponseEntity<List<Product>> getAllProductsBYUserId(@PathVariable long user_id){
         List<Product>  productList = productService.getAllProductsByUserId(user_id);
-        logger.info("All Products requested belonging to a particular user");
+        logger.info("All Products requested belonging to a particular user having userId : "+user_id);
         return new ResponseEntity<>(productList,HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
     public String deleteProduct(@PathVariable long id){
-        logger.info("Product delete request initiated");
+        logger.info("Product delete request initiated having productId : "+id);
         return productService.deleteProduct(id);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable long id,@RequestBody Product product){
         Product updatedProduct = productService.updateProduct(id, product);
-        logger.info("Product update request initiated");
+        logger.info("Product update request initiated having productId : "+id);
         return new ResponseEntity<>(updatedProduct,HttpStatus.OK);
     }
 

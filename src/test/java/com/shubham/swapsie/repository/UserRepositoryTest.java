@@ -17,22 +17,25 @@ class UserRepositoryTest {
     User user;
 
 
-    @BeforeEach
-    void setUp() {
-        User user = new User(100,"Test","User"
-                ,"Test@gmail.com","123");
-        userRepository.save(user);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        User user = new User(100,"Test","User"
+//                ,"Test@gmail.com","123");
+//        userRepository.save(user);
+//    }
 
-    @AfterEach
-    void tearDown() {
-        user = null;
-        userRepository.deleteAll();
-    }
+//    @AfterEach
+//    void tearDown() {
+//        user = null;
+//        userRepository.deleteAll();
+//    }
 
     //SUCCESS
     @Test
     void testFindByEmailAndPassword_Found() {
+        User user = new User(100,"Test","User"
+                ,"Test@gmail.com","123");
+        userRepository.save(user);
         User foundUser = userRepository.findByEmailAndPassword("Test@gmail.com","123");
 
         assertThat(foundUser).isNotNull();

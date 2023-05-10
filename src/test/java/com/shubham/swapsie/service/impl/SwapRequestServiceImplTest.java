@@ -98,8 +98,6 @@ class SwapRequestServiceImplTest {
     void testDeleteSwapRequest() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.Product.getName()" because the return value of "com.shubham.swapsie.model.SwapRequest.getProduct1()" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.deleteSwapRequest(SwapRequestServiceImpl.java:38)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -130,8 +128,6 @@ class SwapRequestServiceImplTest {
     void testDeleteSwapRequest3() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.Product.getName()" because the return value of "com.shubham.swapsie.model.SwapRequest.getProduct2()" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.deleteSwapRequest(SwapRequestServiceImpl.java:38)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -289,8 +285,6 @@ class SwapRequestServiceImplTest {
     void testUpdateSwapRequest5() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.SwapRequest.getStatus()" because "swapRequest" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.updateSwapRequest(SwapRequestServiceImpl.java:53)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -315,8 +309,6 @@ class SwapRequestServiceImplTest {
     void testAcceptSwapRequest() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.Product.getUser()" because "product1" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.acceptSwapRequest(SwapRequestServiceImpl.java:73)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -333,8 +325,6 @@ class SwapRequestServiceImplTest {
     void testAcceptSwapRequest2() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.Product.getUser()" because "product2" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.acceptSwapRequest(SwapRequestServiceImpl.java:73)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -399,8 +389,6 @@ class SwapRequestServiceImplTest {
     void testDeclineSwapRequest() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.Product.getUser()" because "product1" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.declineSwapRequest(SwapRequestServiceImpl.java:106)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -417,8 +405,6 @@ class SwapRequestServiceImplTest {
     void testDeclineSwapRequest2() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.Product.getUser()" because "product2" is null
         //       at com.shubham.swapsie.service.impl.SwapRequestServiceImpl.declineSwapRequest(SwapRequestServiceImpl.java:106)
         //   See https://diff.blue/R013 to resolve this issue.

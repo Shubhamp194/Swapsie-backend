@@ -192,8 +192,6 @@ class UserServiceImplTest {
     void testUpdateUser5() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.User.getFName()" because "updatedUser" is null
         //       at com.shubham.swapsie.service.impl.UserServiceImpl.updateUser(UserServiceImpl.java:38)
         //   See https://diff.blue/R013 to resolve this issue.
@@ -299,8 +297,6 @@ class UserServiceImplTest {
     void testLogin3() {
         // TODO: Complete this test.
         //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
         //   java.lang.NullPointerException: Cannot invoke "com.shubham.swapsie.model.LoginRequest.getEmail()" because "loginRequest" is null
         //       at com.shubham.swapsie.service.impl.UserServiceImpl.login(UserServiceImpl.java:57)
         //   See https://diff.blue/R013 to resolve this issue.

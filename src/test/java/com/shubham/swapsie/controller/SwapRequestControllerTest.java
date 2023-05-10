@@ -35,7 +35,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testAcceptSwapRequest() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -58,7 +57,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testCreateSwapRequest() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -100,7 +98,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testDeclineSwapRequest() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -124,7 +121,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testDeleteSwapRequest() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -148,7 +144,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllSwapRequests() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -172,7 +167,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllSwapRequestsByProduct1() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -196,7 +190,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllSwapRequestsByProduct2() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -220,7 +213,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllSwapRequestsByUser1() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -244,7 +236,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllSwapRequestsByUser2() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -268,7 +259,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetSwapRequestById() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -291,7 +281,6 @@ class SwapRequestControllerTest {
     @Disabled("TODO: Complete this test")
     void testUpdateSwapRequest() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs

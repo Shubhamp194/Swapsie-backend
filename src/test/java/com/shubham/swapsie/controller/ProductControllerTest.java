@@ -34,7 +34,6 @@ class ProductControllerTest {
     @Disabled("TODO: Complete this test")
     void testAddProduct() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -71,7 +70,6 @@ class ProductControllerTest {
     @Disabled("TODO: Complete this test")
     void testDeleteProduct() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -95,7 +93,6 @@ class ProductControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllProducts() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -118,7 +115,6 @@ class ProductControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetAllProductsBYUserId() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -142,7 +138,6 @@ class ProductControllerTest {
     @Disabled("TODO: Complete this test")
     void testGetProductById() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs
@@ -165,7 +160,6 @@ class ProductControllerTest {
     @Disabled("TODO: Complete this test")
     void testUpdateProduct() throws Exception {
         // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
         // Arrange
         // TODO: Populate arranged inputs

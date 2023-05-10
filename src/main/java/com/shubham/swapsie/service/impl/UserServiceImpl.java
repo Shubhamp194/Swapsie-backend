@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
         if(user == null)
-            throw new RuntimeException("Did not find patient with these credentials");
+            throw new RuntimeException("Did not find user with these credentials");
         return user;
     }
 

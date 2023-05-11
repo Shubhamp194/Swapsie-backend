@@ -1,11 +1,17 @@
 package com.shubham.swapsie.controller;
 
-import com.shubham.swapsie.model.LoginRequest;
+import com.shubham.swapsie.model.AuthRequest;
+import com.shubham.swapsie.model.LoginResponse;
 import com.shubham.swapsie.model.User;
+import com.shubham.swapsie.repository.UserRepository;
+import com.shubham.swapsie.security.services.JwtService;
 import com.shubham.swapsie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
@@ -18,6 +24,13 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user){
@@ -54,10 +67,21 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequest loginRequest){
-        User user = userService.login(loginRequest);
-        log.info("User Login successful for user with email : "+user.getEmail());
-        return user;
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest){
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        if(authentication.isAuthenticated()) {
+            String token=jwtService.generateToken(authRequest.getEmail());
+            User emp=this.userRepo.findByEmail(authRequest.getEmail()).orElseThrow();
+            LoginResponse loginResponse=new LoginResponse();
+            loginResponse.setToken(token);
+            loginResponse.setRoles(emp.getRoles());
+            loginResponse.setFname(emp.getFName());
+            loginResponse.setEmail(emp.getEmail());
+            loginResponse.setId(emp.getId());
+            loginResponse.setLName(emp.getLName());
+            return new ResponseEntity<>(loginResponse,HttpStatus.ACCEPTED);
+        }
+        else return new ResponseEntity<>("Invalid Username or password",HttpStatus.CONFLICT);
     }
 
 }

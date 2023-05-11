@@ -1,11 +1,12 @@
 package com.shubham.swapsie.service.impl;
 
 import com.shubham.swapsie.exception.ResourceNotFoundException;
-import com.shubham.swapsie.model.LoginRequest;
+import com.shubham.swapsie.model.AuthRequest;
 import com.shubham.swapsie.model.User;
 import com.shubham.swapsie.repository.UserRepository;
 import com.shubham.swapsie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -38,7 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setFName(updatedUser.getFName());
         user.setLName(updatedUser.getLName());
         user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
+        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         User newUser = userRepository.save(user);
         return newUser;
     }
@@ -50,15 +54,5 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
         return "User "+user.getFName()+" "+user.getLName()+" with id : "+user.getId()+" deleted successfully";
     }
-
-    @Override
-    public User login(LoginRequest loginRequest) {
-
-        User user = userRepository.findByEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
-        if(user == null)
-            throw new RuntimeException("Did not find user with these credentials");
-        return user;
-    }
-
 
 }

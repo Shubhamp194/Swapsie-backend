@@ -39,5 +39,11 @@ pipeline {
             }
         }
 
+        stage("Removing Image from local"){
+            steps{
+                sh "docker rmi shubhamp194/swapsie-backend-image"
+            }
+        }
+
     }
 }
